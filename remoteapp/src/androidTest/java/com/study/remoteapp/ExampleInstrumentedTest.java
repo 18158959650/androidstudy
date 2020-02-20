@@ -1,4 +1,4 @@
-package me.andstudy;
+package com.study.remoteapp;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("me.me.andstudy", appContext.getPackageName());
+        assertEquals("com.l.remoteapp", appContext.getPackageName());
     }
 }

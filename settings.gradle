@@ -1,2 +1,2 @@
-include ':app', ':customview'
+include ':app', ':customview', ':remoteapp'
 rootProject.name='MyAndroidStudy'
