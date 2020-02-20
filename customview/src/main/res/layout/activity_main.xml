@@ -8,8 +8,10 @@
 
     <me.study.customview.SimpleView
         android:id="@+id/ft_layout"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="400px"
+        android:layout_height="500px"
+        android:padding="10dp"
+        android:background="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
