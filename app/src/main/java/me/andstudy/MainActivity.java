@@ -7,7 +7,12 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import me.andstudy.binder.IDemoInterface;
@@ -22,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-//            demoInterface = IDemoInterface.Stub.asInterface(iBinder);
-//            try {
-//                demoInterface.showMessage("Hello");
-//            } catch (RemoteException e) {
-//                e.printStackTrace();
-//            }
+            demoInterface = IDemoInterface.Stub.asInterface(iBinder);
+            try {
+                demoInterface.showMessage("Hello");
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
 
 //            addService = IAddService.Stub.asInterface(iBinder);
 //            try {
@@ -38,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
 //                e.printStackTrace();
 //            }
 
-            calcInterface = ICalcInterface.Stub.asInterface(iBinder);
-            try {
-                int result = calcInterface.add(100, 200);
-                Toast.makeText(MainActivity.this, String.valueOf(result), Toast.LENGTH_LONG)
-                        .show();
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+//            calcInterface = ICalcInterface.Stub.asInterface(iBinder);
+//            try {
+//                int result = calcInterface.add(100, 200);
+//                Toast.makeText(MainActivity.this, String.valueOf(result), Toast.LENGTH_LONG)
+//                        .show();
+//            } catch (RemoteException e) {
+//                e.printStackTrace();
+//            }
         }
 
         @Override
@@ -61,12 +66,19 @@ public class MainActivity extends AppCompatActivity {
 
         // 绑定本地服务
         Intent intent = new Intent();
-//        intent.setPackage("me.me.andstudy");
-//        intent.setAction("me.me.andstudy.binder.DemoService");
-        intent.setPackage("me.study.remoteapp");
-        intent.setAction("DemoService");
+        intent.setPackage("me.me.andstudy");
+        intent.setAction("me.me.andstudy.binder.DemoService");
+
+        // 绑定远程服务
+//        intent.setPackage("me.study.remoteapp");
+//        intent.setAction("DemoService");
 
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
-        // 绑定远程服务
+
+        HashMap map = new HashMap<>();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("map", map);
+
+        List list = new ArrayList();
     }
 }
