@@ -6,13 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.RemoteException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import me.andstudy.binder.IDemoInterface;
@@ -27,21 +21,23 @@ public class MainActivity extends AppCompatActivity {
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            demoInterface = IDemoInterface.Stub.asInterface(iBinder);
-            try {
-                demoInterface.showMessage("Hello");
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-
-//            addService = IAddService.Stub.asInterface(iBinder);
+//            demoInterface = IDemoInterface.Stub.asInterface(iBinder);
 //            try {
-//                int result = addService.add(1, 2);
-//                Toast.makeText(MainActivity.this, String.valueOf(result), Toast.LENGTH_LONG)
-//                        .show();
+//                demoInterface.showMessage("Hello");
 //            } catch (RemoteException e) {
 //                e.printStackTrace();
 //            }
+
+            addService = IAddService.Stub.asInterface(iBinder);
+            try {
+                int result = addService.add(1, 2);
+                Toast.makeText(MainActivity.this, String.valueOf(result), Toast.LENGTH_LONG)
+                        .show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG)
+                        .show();
+            }
 
 //            calcInterface = ICalcInterface.Stub.asInterface(iBinder);
 //            try {
@@ -66,19 +62,19 @@ public class MainActivity extends AppCompatActivity {
 
         // 绑定本地服务
         Intent intent = new Intent();
-        intent.setPackage("me.me.andstudy");
-        intent.setAction("me.me.andstudy.binder.DemoService");
-
+        intent.setPackage("me.andstudy");
+        intent.setAction("me.andstudy.binder.DemoService");
+//        Intent intent = new Intent(this, DemoService.class);
         // 绑定远程服务
 //        intent.setPackage("me.study.remoteapp");
 //        intent.setAction("DemoService");
 
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
 
-        HashMap map = new HashMap<>();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("map", map);
-
-        List list = new ArrayList();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(connection);
     }
 }

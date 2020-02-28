@@ -19,7 +19,7 @@ public interface IDemoInterface extends android.os.IInterface {
         }
 
         /**
-         * Cast an IBinder object into an me.me.andstudy.binder.IDemoInterface interface,
+         * Cast an IBinder object into an me.andstudy.binder.IDemoInterface interface,
          * generating a proxy if needed.
          */
         public static IDemoInterface asInterface(android.os.IBinder obj) {

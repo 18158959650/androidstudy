@@ -24,8 +24,8 @@ public class SimpleView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         // 单位为px像素
-        width = MeasureSpec.getSize(widthMeasureSpec);
-        height = MeasureSpec.getSize(heightMeasureSpec);
+//        width = MeasureSpec.getSize(widthMeasureSpec);
+//        height = MeasureSpec.getSize(heightMeasureSpec);
     }
 
     @Override
